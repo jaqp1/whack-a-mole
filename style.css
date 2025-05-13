@@ -16,6 +16,8 @@ body{
     align-items: center;
     background-color: rgba(65, 65, 65, 0.5);
     transition: background-color 1s ease; 
+    position: fixed;
+    z-index: 0;
 }
 .container.transparent{
     background-color: transparent;
@@ -68,15 +70,36 @@ body{
     position: absolute;
     top: 5%;
     left: 3%;
-    width: 20%;
-    height: 40%;
+    width: auto;
+    height: auto;
     font-family: "Luckiest Guy", cursive;
     color: #f5c159;
     z-index: 0;
+    padding: 0;
 }
 .scoreboard_img{
+    position: absolute;
+    top: 5%;
+    left: 3%;
+    font-family: "Luckiest Guy", cursive;
+    color: #f5c159;
     background-image: url('scoreboard.png');
-    background-size: cover;
-    width: 100%;
-    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 35vh;
+    height: 30vh;
+    font-size: 1em;
+    z-index: -1;
 }
+h1{
+    font-family: "Luckiest Guy", cursive;
+    color: #e5bd68;
+    -webkit-text-stroke: #51381b 2px;
+    font-size: 2em;
+    margin: 0;
+    position: relative;
+    left: 15%;
+    top: 38%;
+}
+

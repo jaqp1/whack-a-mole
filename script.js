@@ -6,15 +6,67 @@ const btnReset = document.querySelector(".buttonReset");
 const backdrop = document.querySelector(".container");
 const startPaneImg = document.querySelector(".start_pane_img");
 
-btnStart.addEventListener("click", () => {
-  box.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-  box.style.transform = "translateY(-110%)";
-  box.style.opacity = "0.9";
-  backdrop.classList.add("transparent");
-  document.querySelector("body").style.backgroundImage = "url('plansza_bez_dziur.png')";
+let intervalId = null;
+let randomHolesTimeout = null;
+let swistakGeneratorTimeout = null;
+let stop = true;
+let counterInterval = null;
 
-  setTimeout(() => {generateHoles();}, 1500);
-  randomSwistakGenerator();
+btnStart.addEventListener("click", () => {
+  clearInterval(intervalId);
+  clearTimeout(randomHolesTimeout);
+  clearTimeout(swistakGeneratorTimeout);
+
+  let counter = 5;
+  let h1 = document.createElement("h1");
+
+  if(stop){
+    counterInterval = setInterval(() => {
+      h1.textContent = counter;
+      h1.style.position = "absolute";
+      h1.style.left = "50%";
+      h1.style.top = "60%";
+      h1.style.transform = "translate(-50%, -50%)";
+      h1.style.fontSize = "200px";
+      h1.style.color = "#e5bd68";
+      h1.style.zIndex = "1000";
+      h1.style.transition = "opacity 0.5s ease";
+      h1.style.opacity = "1";
+      backdrop.appendChild(h1);
+      counter--;
+      if(counter < 0){
+        clearInterval(counterInterval);
+        h1.style.opacity = "0";
+        setTimeout(() => {
+          h1.remove();
+        }, 500);
+      }
+    }, 1000);
+
+
+
+    box.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+    box.style.transform = "translateY(-110%)";
+    box.style.opacity = "0.9";
+    backdrop.classList.add("transparent");
+    document.querySelector("body").style.backgroundImage = "url('plansza_bez_dziur.png')";
+
+    randomHolesTimeout =  setTimeout(() => {generateHoles();}, 1500);
+  
+    swistakGeneratorTimeout = setTimeout(() => {
+      document.querySelectorAll(".swistak").forEach(swistak => {
+      swistak.remove();
+    });intervalId = setInterval(() => {
+      randomSwistakGenerator();
+    },1000);
+    },6000 );
+
+    stop = false;
+  }
+  
+
+  
+
 });
 
 btnStop.addEventListener("click", () => {
@@ -24,19 +76,19 @@ btnStop.addEventListener("click", () => {
     box.style.opacity = "1";
     backdrop.classList.remove("transparent");
     document.querySelector("body").style.backgroundImage = "url('plansza.png')";
+
     document.querySelectorAll(".hole").forEach(hole => {
       hole.remove();
     });
     document.querySelectorAll(".swistak").forEach(swistak => {
       swistak.remove();
     });
-  }
- 
 
- 
- 
-
-});
+    clearInterval(intervalId);
+    clearTimeout(randomHolesTimeout);
+    clearTimeout(swistakGeneratorTimeout);
+    stop = true;
+}});
 
 btnReset.addEventListener("click", () => {
   randomSwistakGenerator();
@@ -45,6 +97,10 @@ btnReset.addEventListener("click", () => {
 const hole = document.createElement("img");
 hole.src = "dziura.png";
 hole.classList.add("hole");
+hole.style.position = "absolute";
+hole.style.width = "200px";
+hole.style.height = "200px";
+
 
 const container = document.querySelector(".container");
 
@@ -52,17 +108,14 @@ const swistak = document.createElement("img");
 swistak.src = "zwierzak.png";
 swistak.classList.add("swistak");
 
-const positions = [];
+let positions = [];
 
 function generateHoles(){
+  positions = [];
 
-
-  const minY = (window.innerHeight - 200) / 2;
-  const maxY = (window.innerHeight - 200);
-  hole.style.position = "absolute";
-  hole.style.width = "200px";
-  hole.style.height = "200px";
-
+  let minY = (window.innerHeight - 200) / 2;
+  let maxY = (window.innerHeight - 200);
+  
   let randomX, randomY;
 
   function isOverlapping(x,y){
@@ -88,9 +141,13 @@ function generateHoles(){
     holeClone.style.top = randomY + "px";
     container.appendChild(holeClone);
   }
+  
 }
 
 function randomSwistakGenerator(){
+  document.querySelectorAll(".swistak").forEach(swistak => {
+    swistak.remove();
+  });
   swistak.style.position = "absolute";
   randomPosition = Math.floor(Math.random() * (positions.length ));
   swistak.style.left = positions[randomPosition].x - 12 + "px" ;
