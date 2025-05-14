@@ -92,7 +92,7 @@ body{
     font-size: 1em;
     z-index: -1;
 }
-h1{
+h1, .life_points_h1 {
     font-family: "Luckiest Guy", cursive;
     color: #e5bd68;
     -webkit-text-stroke: #51381b 2px;
@@ -102,4 +102,20 @@ h1{
     left: 15%;
     top: 38%;
 }
+.life_points{
+    display: flex;
+    direction: row;
+    gap: 15px;
 
+}
+
+.life_points_img{
+    width: 10%;
+    height: auto;
+}
+img{
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
