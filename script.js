@@ -17,7 +17,9 @@ btnStart.addEventListener("click", () => {
   //btnStop.disabled = true;
   //btnStart.disabled = true;
   
-
+  score = 0;
+  fotoCounter = 5;
+  //stop = false;
   clearInterval(intervalId);
   clearTimeout(randomHolesTimeout);
   clearTimeout(swistakGeneratorTimeout);
@@ -101,6 +103,7 @@ btnStop.addEventListener("click", () => {
     clearTimeout(randomHolesTimeout);
     clearTimeout(swistakGeneratorTimeout);
     stop = true;
+
     score = 0;
     scoreString = "Score: "+ score;
     document.querySelector(".score").textContent = scoreString;
@@ -192,6 +195,9 @@ document.querySelector(".container").addEventListener("click", (event) => {
   if(event.target.classList.contains("swistak")){
       clicked = true;
       score++;
+      if(score >= 5){
+        youWon();
+      }
       let scoreString = "Score: "+ score;
       document.querySelector(".score").textContent = scoreString;
       document.querySelectorAll(".swistak").forEach(swistak => {
@@ -245,6 +251,55 @@ function stopGamePane(){
       life.src = "zwierzak.png";
     });
     btnStart.disabled = false;
+    stop = true;
   }, 5000);
   }
+}
+
+function youWon(){
+    btnStop.disabled = true;
+    clearInterval(intervalId);
+    clearTimeout(randomHolesTimeout);
+    clearTimeout(swistakGeneratorTimeout);
+        let h1 = document.createElement("h1");
+        h1.textContent = "Game Over\n You won!";
+        h1.style.position = "absolute";
+        h1.style.left = "50%";
+        h1.style.top = "60%";
+        h1.style.transform = "translate(-50%, -50%)";
+        h1.style.fontSize = "200px";
+        h1.style.color = "#e5bd68";
+        h1.style.zIndex = "1000";
+        h1.style.transition = "opacity 0.5s ease";
+        h1.style.opacity = "1";
+        h1.style.textAlign = "center";
+        backdrop.appendChild(h1);
+
+    gameOver = setTimeout(() => {
+      h1.style.opacity = "0";
+      h1.remove();
+      
+      box.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+      box.style.transform = "translateY(0%)";
+      box.style.opacity = "1";
+      backdrop.classList.remove("transparent");
+      document.querySelector("body").style.backgroundImage = "url('plansza.png')";
+      document.querySelectorAll(".hole").forEach(hole => {
+      hole.remove();
+      });
+      document.querySelectorAll(".swistak").forEach(swistak => {
+        swistak.remove();
+      });
+      document.querySelectorAll(".life_points_img").forEach(life => {
+        life.src = "zwierzak.png";
+      });
+      score = 0;
+      scoreString = "Score: "+ score;
+      document.querySelector(".score").textContent = scoreString;
+      btnStart.disabled = false;
+      stop = true;
+      //console.log("Gra zakończona – stop =", stop);
+  }, 5000);
+  
+  //clearTimeout(gameOver);
 }
