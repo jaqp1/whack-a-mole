@@ -83,7 +83,7 @@ body{
 }
 .scoreboard_img{
     position: absolute;
-    top: 5%;
+    top: 0%;
     left: 3%;
     font-family: "Luckiest Guy", cursive;
     color: #f5c159;
@@ -129,6 +129,40 @@ h1{
     -webkit-text-stroke: #51381b 2px;
     font-size: 10em;
 }
+
+@media (max-width: 1100px) {
+    .start-pane{
+        width: 50%;
+        height: auto;
+    }
+    .buttons{
+        width: 80px;
+        height: 30px;
+        font-size: 15px;
+    }
+    .scoreboard_img{
+        
+        left: 5%;
+    }
+    .score, .life_points_h1 {
+        font-size: 2em;
+        left: 10%;
+        top: 38%;
+    }
+    body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0; 
+    background-image: url('plansza.png');
+    background-size:cover;
+    transition: background-image 1s ease;
+    }
+    h1{
+        font-size: 6rem;
+    }
+}
 @media (max-width: 600px) {
     .start-pane{
         width: 80%;
@@ -163,41 +197,14 @@ h1{
     transition: background-image 1s ease;
     }
     h1{
-        font-size: 8rem;
+        font-size: 6rem;
     }
 
 }
- @media (max-width: 1100px) {
-    .start-pane{
-        width: 50%;
-        height: auto;
-    }
-    .buttons{
-        width: 80px;
-        height: 30px;
-        font-size: 15px;
-    }
+@media (max-height: 900px){
     .scoreboard_img{
-        
-        left: 5%;
+        height: 49vh;
+        width: 45vh;
     }
-    .score, .life_points_h1 {
-        font-size: 2em;
-        left: 10%;
-        top: 38%;
-    }
-    body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-    margin: 0; 
-    background-image: url('plansza.png');
-    background-size:cover;
-    transition: background-image 1s ease;
-    }
-    h1{
-        font-size: 6rem;
-    }
+   
 }
- 
