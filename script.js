@@ -12,7 +12,11 @@ let stop = true;
 let counterInterval = null;
 
 btnStart.addEventListener("click", () => {
-  //btnStop.disabled = true;
+    startGame();
+});
+
+function startGame() {
+   //btnStop.disabled = true;
   //btnStart.disabled = true;
   
   score = 0;
@@ -96,21 +100,22 @@ btnStart.addEventListener("click", () => {
       document.querySelectorAll(".swistak").forEach(swistak => {
       swistak.remove();
     });intervalId = setInterval(() => {
-      randomSwistakGenerator();
+      randomMarmotGenerator
+    ();
     },level);
     },6000 );
 
     stop = false;
     
    
-  }
-  
-
-  
-
-});
+  } 
+}
 
 btnStop.addEventListener("click", () => {
+    stopGame();
+});
+
+function stopGame() {
   if(document.querySelectorAll(".hole").length > 0){
     box.style.transition = "transform 0.5s ease, opacity 0.5s ease";
     box.style.transform = "translateY(0%)";
@@ -139,7 +144,7 @@ btnStop.addEventListener("click", () => {
     });
   }
   fotoCounter = 5
-});
+}
 
 let count = 0;
 const colors = ['#006400', '#00008B', '#8B0000'];
@@ -178,7 +183,7 @@ function generateHoles() {
 
 
 
-  let minY = (window.innerHeight - holeSize + 80) / 2;
+  let minY = (window.innerHeight - holeSize + 150) / 2;
   let maxY = (window.innerHeight - holeSize);
 
   const containerWidth = container.clientWidth;
@@ -223,7 +228,7 @@ function generateHoles() {
 
  
 
-function randomSwistakGenerator(){
+function randomMarmotGenerator(){
   document.querySelectorAll(".swistak").forEach(swistak => {
     swistak.remove();
     document.querySelector(`.life_points_img${fotoCounter}`).src = "zwierzak_down.png";
@@ -239,7 +244,7 @@ function randomSwistakGenerator(){
   swistak.style.width = window.innerWidth <= 600 ? "80px":"200px";
   swistak.style.height = window.innerWidth <= 600 ? "80px" : "200px";
 
-  stopGamePane();
+ youLoose();
   container.appendChild(swistak);
 }
   
@@ -253,7 +258,7 @@ document.querySelector(".container").addEventListener("click", (event) => {
   if(event.target.classList.contains("swistak")){
       clicked = true;
       score++;
-      if(score >= 5){
+      if(score >= 20){
         youWon();
       }
       let scoreString = "Score: "+ score;
@@ -274,11 +279,11 @@ document.querySelector(".container").addEventListener("click", (event) => {
       let topScoreString = "Top Score: "+ topScore;
       document.querySelector(".top_score").textContent = topScoreString;
     }
-  stopGamePane();
+ youLoose();
   }
 );
 
-function stopGamePane(){
+function youLoose(){
   if(fotoCounter < 1){
     btnStop.disabled = true;
     clearInterval(intervalId);

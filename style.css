@@ -203,8 +203,9 @@ h1{
 }
 @media (max-height: 900px){
     .scoreboard_img{
-        height: 49vh;
+        height: 52vh;
         width: 45vh;
+        top: -2%;
     }
    
 }
